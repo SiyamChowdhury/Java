@@ -1,0 +1,95 @@
+Problem 1:
+
+Write a function swapLetter that accepts a string to modify, a string find and a string replace.  The function returns a string with all the find letter's and replaces them with the replace string.
+
+Hint:Build a new string.
+Example: swapLetter("the seen","e","%")  ==> "th% s%%n"
+String swapLetter(String text, String find, String replace){
+ String bld = "";
+
+
+        for (int i = 0; i < text.length(); i++) {
+
+            if (i + find.length() <= text.length() &&
+                text.substring(i, i + find.length()).equals(find)) {
+
+                bld = bld + replace; 
+                i += find.length() - 1;
+            } else {
+                bld = bld + text.substring(i, i + 1); 
+            }
+        }
+
+        return bld;
+}
+
+
+
+Problem 2:
+Write a function encryption2 that accepts a string and returns the string where the orginal string is split in half and each letter from each of the half's is used to create a new string using the 
+
+Example: There are two examples, one is odd number of chars and the second is even number of chars.
+
+encryption2("abcdefghi")==> "aebfcgdhi"
+
+ process:  "abcdefghi" -> "abcd" "efghi"  -> "ae" + "bf" + "cg" + "dh" +"i"  -> "aebfcgdhi"
+
+encryption2("abcdefgh") ==> "aebfcgdh"
+ process:  "abcdefgh" -> "abcd" "efgh"  -> "ae" + "bf" + "cg" + "dh"  -> "aebfcgdh"
+ String encryption2(String text) {
+        if (text.equals("")) {
+            return "";
+        }
+
+        int mid = text.length() / 2; // we can compute midpoint directly
+
+        String firstHalf = text.substring(0, mid);
+        String secondHalf = text.substring(mid);
+        String newText = "";
+
+        // Combine letters alternately using a for loop
+        for (int i = 0; i < firstHalf.length(); i++) {
+            newText = newText + firstHalf.substring(i, i + 1);
+            if (i < secondHalf.length()) {
+                newText = newText + secondHalf.substring(i, i + 1);
+            }
+        }
+
+        // If second half has one extra letter (odd number of characters)
+        if (secondHalf.length() > firstHalf.length()) {
+            newText = newText + secondHalf.substring(secondHalf.length() - 1);
+        }
+
+        return newText;
+    }
+
+
+Problem 3:
+Write a function encryption3 that accepts a string and returns the string that rearranges the characters of the incoming string as: 1st,last,2nd,last-1,3rd,last-2,... 
+and so on.
+
+Example
+encryption3("abcdef")==> "afbecd"
+encryption3("abcde")==> "aebd"
+ String encryption3(String text) {
+        if (text.equals("")) {
+            return "";
+        }
+
+        String newText = "";
+        int left = 0;
+        int right = text.length() - 1;
+
+        // Loop until the two pointers cross
+        for (; left < right; left++, right--) {
+            newText = newText + text.substring(left, left + 1);   // from start
+            newText = newText + text.substring(right, right + 1); // from end
+        }
+
+        // If there's a middle character (odd length), add it
+        if (left == right) {
+            newText = newText + text.substring(left, left + 1);
+        }
+
+        return newText;
+ }
