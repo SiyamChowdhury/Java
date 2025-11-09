@@ -1,0 +1,135 @@
+
+Challenge 1:
+Write a function rollDice that rolls two dice and returns the two values as one string.
+
+Example:
+rollDice() ==> "2 6"
+rollDice() ==> "3 1"
+
+String rollDice() {
+        Random random = new Random();
+        int dice1 = random.nextInt(6) + 1; // gives a number 1–6
+        int dice2 = random.nextInt(6) + 1; // gives a number 1–6
+        return dice1 + " " + dice2;
+}
+
+Challenge 2:
+Write a function lotto that returns a string of 5 numbers from 1 to 48.
+String lotto() {
+        Random random = new Random();
+        String result = "";
+
+        for (int i = 0; i < 5; i++) {
+            int number = random.nextInt(48) + 1; // 1–48
+            result = result + number;
+            if (i < 4) {
+                result = result + " ";
+            }
+        }
+        return result;
+}
+
+Challenge 3:
+Write a function diceDistribution that accepts an integer N and rolls a die N times, keeps a counter of the number of times 1,2,3,4,5,6 was rolled (need a counter for each) and displays the counters for each.
+
+Try N for 100, 1,000, 100,000, 1,000,000
+
+What do the results look like as the number N gets larger?
+void diceDistribution(int N) {
+        Random random = new Random();
+
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int five = 0;
+        int six = 0;
+
+        for (int i = 0; i < N; i++) {
+            int roll = random.nextInt(6) + 1; // 1–6
+
+            if (roll == 1) one++;
+            else if (roll == 2) two++;
+            else if (roll == 3) three++;
+            else if (roll == 4) four++;
+            else if (roll == 5) five++;
+            else six++;
+        }
+
+        System.out.println("After " + N + " rolls:");
+        System.out.println("1s: " + one);
+        System.out.println("2s: " + two);
+        System.out.println("3s: " + three);
+        System.out.println("4s: " + four);
+        System.out.println("5s: " + five);
+        System.out.println("6s: " + six);
+}
+Challenge 4:
+Write a function additionTutor that generates two random numbers and prompts the user for what the sum of the two numbers. If the answer is correct return "Correct!" otherwise return "Incorrect".
+void additionTutor() {
+        Random random = new Random();
+        Scanner input = new Scanner(System.in);
+
+        int num1 = random.nextInt(100); // 0–99
+        int num2 = random.nextInt(100); // 0–99
+
+        System.out.print("What is " + num1 + " + " + num2 + "? ");
+        int answer = input.nextInt();
+
+        if (answer == num1 + num2) {
+            System.out.println("Correct!");
+        } else {
+            System.out.println("Incorrect. The answer is " + (num1 + num2));
+        }
+}
+
+Bonus Challenge:
+Write a function mathQuiz that generates and that generates random addition, subtraction, multiplication or division problem of two random integers, prompts the user for the answer and returns "Correct!" if the answer is correct, otherwise return "Incorrect". The random integers should range from -100 to 100 (inclusively).
+
+Hint: For the random operations (+,-,*,/) using a random number from 0 to 3 where 0 means +, 1 means -, 2 means * and 3 means /.
+void mathQuiz() {
+        Random random = new Random();
+        Scanner input = new Scanner(System.in);
+
+        int num1 = random.nextInt(201) - 100; // -100 to 100
+        int num2 = random.nextInt(201) - 100; // -100 to 100
+        int op = random.nextInt(4); // 0,1,2,3
+
+        double correctAnswer = 0;
+        String operator = "";
+
+        if (op == 0) {
+            operator = "+";
+            correctAnswer = num1 + num2;
+        } else if (op == 1) {
+            operator = "-";
+            correctAnswer = num1 - num2;
+        } else if (op == 2) {
+            operator = "*";
+            correctAnswer = num1 * num2;
+        } else {
+            // make sure not dividing by zero
+            while (num2 == 0) {
+                num2 = random.nextInt(201) - 100;
+            }
+            operator = "/";
+            correctAnswer = (double) num1 / num2;
+        }
+
+        System.out.print("What is " + num1 + " " + operator + " " + num2 + "? ");
+        double userAnswer = input.nextDouble();
+
+        if (Math.abs(userAnswer - correctAnswer) < 0.0001) {
+            System.out.println("Correct!");
+        } else {
+            System.out.println("Incorrect. The correct answer is " + correctAnswer);
+        }
+    }
+
+
+
+
+
+
+
+
